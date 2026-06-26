@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Water Safety Status System</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #f2f6f7;
+    text-align: center;
+    padding: 20px;
+}
+h1 {
+    color: #2c3e50;
+}
+.panel {
+    width: 60%;
+    margin: auto;
+    padding: 20px;
+    border: 2px solid #333;
+    background: white;
+}
+input {
+    padding: 8px;
+    margin: 5px;
+    width: 120px;
+}
+button {
+    padding: 10px 20px;
+    margin-top: 10px;
+    font-size: 16px;
+}
+.status {
+    margin-top: 20px;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+}
+.safe {
+    background: #27ae60;
+    color: white;
+}
+.caution {
+    background: #f39c12;
+    color: white;
+}
+.unsafe {
+    background: #c0392b;
+    color: white;
+}
+</style>
+</head>
+
+<body>
+
+<h1>🚰 Water Safety Status System</h1>
+<p><b>Software Prototype (Simulated Sensors)</b></p>
+
+<div class="panel">
+    <p>Enter Sensor Values (Simulation)</p>
+    <input type="number" id="ph" placeholder="pH Value">
+    <input type="number" id="tds" placeholder="TDS (ppm)">
+    <input type="number" id="turbidity" placeholder="Turbidity">
+
+    <br>
+    <button onclick="checkWater()">Check Water Safety</button>
+
+    <div id="result" class="status"></div>
+</div>
+
+<script>
+function checkWater() {
+    let ph = document.getElementById("ph").value;
+    let tds = document.getElementById("tds").value;
+    let turbidity = document.getElementById("turbidity").value;
+    let result = document.getElementById("result");
+
+    // Convert numeric strings to numbers
+    ph = parseFloat(ph);
+    tds = parseFloat(tds);
+    turbidity = parseFloat(turbidity);
+
+    if (
+        !isNaN(ph) &&
+        !isNaN(tds) &&
+        !isNaN(turbidity) &&
+        ph >= 6.5 && ph <= 8.5 &&
+        tds <= 300 && turbidity <= 5
+    ) {
+        result.innerHTML = "🟢 SAFE TO DRINK<br>Water quality is within safe limits.";
+        result.className = "status safe";
+    } else if (
+        !isNaN(ph) &&
+        !isNaN(tds) &&
+        !isNaN(turbidity) &&
+        tds <= 500
+    ) {
+        result.innerHTML = "🟡 CAUTION<br>Water quality needs attention.";
+        result.className = "status caution";
+    } else {
+        result.innerHTML = "🔴 NOT SAFE TO DRINK<br>Please avoid using this water.";
+        result.className = "status unsafe";
+    }
+}
+</script>
+
+</body>
+</html>
